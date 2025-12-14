@@ -13,9 +13,9 @@ import { createSweetRoutes } from './routes/sweets';
 export const createApp = async (dataSource: DataSource): Promise<Express> => {
   const app = express();
 
-  // Middleware
+  // Middleware - Allow all origins for now (or specify your domains)
   app.use(cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    origin: true,  // Allow all origins
     credentials: true,
   }));
   app.use(express.json());
