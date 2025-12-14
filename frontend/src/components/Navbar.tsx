@@ -25,11 +25,6 @@ const Navbar: React.FC = () => {
           <Link to="/dashboard" className="navbar-link">
             Dashboard
           </Link>
-          {user?.role === 'admin' && (
-            <Link to="/admin" className="navbar-link">
-              Admin Panel
-            </Link>
-          )}
         </div>
 
         <div className="navbar-user">

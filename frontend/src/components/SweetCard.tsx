@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Sweet, SweetCategory } from '../types';
-import { useAuth } from '../context/AuthContext';
+import { useCart } from '../App';
+import toast from 'react-hot-toast';
 
 /**
  * Category emoji mapping
@@ -20,31 +21,47 @@ const categoryEmojis: Record<SweetCategory, string> = {
  */
 interface SweetCardProps {
   sweet: Sweet;
-  onPurchase: (id: string) => void;
-  onEdit?: (sweet: Sweet) => void;
-  onDelete?: (id: string) => void;
-  onRestock?: (sweet: Sweet) => void;
-  purchasing?: boolean;
 }
 
 /**
  * Sweet card component
  */
-const SweetCard: React.FC<SweetCardProps> = ({
-  sweet,
-  onPurchase,
-  onEdit,
-  onDelete,
-  onRestock,
-  purchasing,
-}) => {
-  const { user } = useAuth();
-  const isAdmin = user?.role === 'admin';
+const SweetCard: React.FC<SweetCardProps> = ({ sweet }) => {
+  const { addToCart, cart } = useCart();
+  const [isAdding, setIsAdding] = useState(false);
   const isOutOfStock = sweet.quantity === 0;
+  
+  // Get quantity in cart for this sweet
+  const cartItem = cart.find(item => item.sweet.id === sweet.id);
+  const quantityInCart = cartItem ? cartItem.quantity : 0;
+
+  const handleAddToCart = () => {
+    if (sweet.quantity > 0) {
+      setIsAdding(true);
+      addToCart(sweet);
+      toast.success(`${sweet.name} added to cart!`);
+      
+      // Reset button after animation
+      setTimeout(() => setIsAdding(false), 600);
+    }
+  };
 
   return (
     <div className="sweet-card">
-      <div className="sweet-image">
+      {sweet.imageUrl ? (
+        <img 
+          src={sweet.imageUrl} 
+          alt={sweet.name} 
+          className="sweet-image-img"
+          onError={(e) => {
+            // Fallback to emoji if image fails to load
+            const target = e.target as HTMLImageElement;
+            target.style.display = 'none';
+            target.nextElementSibling?.classList.remove('hidden');
+          }}
+        />
+      ) : null}
+      <div className={`sweet-image ${sweet.imageUrl ? 'hidden' : ''}`}>
         {categoryEmojis[sweet.category as SweetCategory] || '🍭'}
       </div>
       <div className="sweet-content">
@@ -54,7 +71,7 @@ const SweetCard: React.FC<SweetCardProps> = ({
           <p className="sweet-description">{sweet.description}</p>
         )}
         <div className="sweet-footer">
-          <span className="sweet-price">${Number(sweet.price).toFixed(2)}</span>
+          <span className="sweet-price">Rs.{Number(sweet.price).toFixed(2)}</span>
           <span className={`sweet-quantity ${isOutOfStock ? 'out-of-stock' : ''}`}>
             {isOutOfStock ? 'Out of Stock' : `${sweet.quantity} in stock`}
           </span>
@@ -62,36 +79,18 @@ const SweetCard: React.FC<SweetCardProps> = ({
       </div>
       <div className="sweet-actions">
         <button
-          className="btn btn-primary btn-sm"
-          onClick={() => onPurchase(sweet.id)}
-          disabled={isOutOfStock || purchasing}
+          className={`btn btn-sm ${isAdding ? 'btn-success' : 'btn-primary'} ${quantityInCart > 0 ? 'has-items' : ''}`}
+          onClick={handleAddToCart}
+          disabled={isOutOfStock || isAdding}
         >
-          {purchasing ? 'Purchasing...' : 'Purchase'}
+          {isOutOfStock 
+            ? 'Out of Stock' 
+            : isAdding 
+              ? '✓ Added!' 
+              : quantityInCart > 0 
+                ? `Add More (${quantityInCart} in cart)` 
+                : 'Add to Cart'}
         </button>
-        {isAdmin && onEdit && (
-          <button
-            className="btn btn-secondary btn-sm"
-            onClick={() => onEdit(sweet)}
-          >
-            Edit
-          </button>
-        )}
-        {isAdmin && onRestock && (
-          <button
-            className="btn btn-success btn-sm"
-            onClick={() => onRestock(sweet)}
-          >
-            Restock
-          </button>
-        )}
-        {isAdmin && onDelete && (
-          <button
-            className="btn btn-danger btn-sm"
-            onClick={() => onDelete(sweet.id)}
-          >
-            Delete
-          </button>
-        )}
       </div>
     </div>
   );
