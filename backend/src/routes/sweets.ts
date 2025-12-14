@@ -2,8 +2,9 @@ import { Router, Response } from 'express';
 import { validationResult } from 'express-validator';
 import { DataSource } from 'typeorm';
 import { SweetService } from '../services/SweetService';
-import { SweetCategory } from '../entities/Sweet';
+import { Sweet, SweetCategory } from '../entities/Sweet';
 import { createAuthMiddleware, adminOnly, AuthRequest } from '../middleware/auth';
+import { sweetsData } from '../seed';
 import {
   createSweetValidation,
   updateSweetValidation,
@@ -71,6 +72,38 @@ export const createSweetRoutes = (dataSource: DataSource): Router => {
       res.status(500).json({
         success: false,
         message: 'Failed to fetch sweets',
+      });
+    }
+  });
+
+  /**
+   * POST /api/sweets/reseed
+   * Clear and reseed database with sample data
+   */
+  router.post('/reseed', async (req: AuthRequest, res: Response) => {
+    try {
+      const sweetRepo = dataSource.getRepository(Sweet);
+      
+      // Clear all sweets
+      await sweetRepo.clear();
+      
+      // Add sample sweets
+      for (const sweetData of sweetsData) {
+        const sweet = sweetRepo.create(sweetData);
+        await sweetRepo.save(sweet);
+      }
+
+      const sweets = await sweetRepo.find();
+
+      res.status(200).json({
+        success: true,
+        message: `Database reseeded with ${sweets.length} sweets`,
+        data: sweets,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: error instanceof Error ? error.message : 'Failed to reseed database',
       });
     }
   });
