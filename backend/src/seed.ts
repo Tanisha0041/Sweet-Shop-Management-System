@@ -4,7 +4,7 @@ import { Sweet, SweetCategory } from './entities/Sweet';
 import { User, UserRole } from './entities/User';
 
 /**
- * Sample sweets data with images from your frontend (Vercel)
+ * Sample sweets data with images
  */
 export const sweetsData = [
  {
@@ -32,6 +32,22 @@ export const sweetsData = [
     imageUrl: 'https://sweet-shop-management-system-iota.vercel.app/images/Rasgulla-Featured-Image.jpg',
   },
   {
+    name: 'Dark Chocolate Truffle',
+    description: 'Rich, velvety dark chocolate truffles made with premium cocoa. Melt-in-your-mouth goodness!',
+    category: SweetCategory.CHOCOLATE,
+    price: 60,
+    quantity: 50,
+    imageUrl: 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=400',
+  },
+  {
+    name: 'Milk Chocolate Bar',
+    description: 'Creamy milk chocolate bar with smooth, silky texture. Perfect for any chocolate lover.',
+    category: SweetCategory.CHOCOLATE,
+    price: 120,
+    quantity: 100,
+    imageUrl: 'https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=400',
+  },
+  {
     name: 'Kaju Katli',
     description: 'A rich cashew-based Indian sweet with a smooth, melt-in-mouth texture, perfect for every sweet lover.',
     category: SweetCategory.OTHER,
@@ -48,28 +64,12 @@ export const sweetsData = [
     imageUrl: 'https://sweet-shop-management-system-iota.vercel.app/images/ladoo.jpg',
   },
   {
-    name: 'Dark Chocolate Truffle',
-    description: 'Rich, velvety dark chocolate truffles made with premium cocoa. Melt-in-your-mouth goodness!',
-    category: SweetCategory.CHOCOLATE,
-    price: 60,
-    quantity: 50,
-    imageUrl: '',
-  },
-  {
-    name: 'Milk Chocolate Bar',
-    description: 'Creamy milk chocolate bar with smooth, silky texture. Perfect for any chocolate lover.',
-    category: SweetCategory.CHOCOLATE,
-    price: 120,
-    quantity: 100,
-    imageUrl: '',
-  },
-  {
     name: 'Chocolate Chip Cookies',
     description: 'Freshly baked cookies loaded with chocolate chips. Crispy outside, chewy inside!',
     category: SweetCategory.COOKIE,
     price: 150,
     quantity: 75,
-    imageUrl: '',
+    imageUrl: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=400',
   },
   {
     name: 'Red Velvet Cake',
@@ -77,7 +77,7 @@ export const sweetsData = [
     category: SweetCategory.CAKE,
     price: 400,
     quantity: 10,
-    imageUrl: '',
+    imageUrl: 'https://images.unsplash.com/photo-1586788680434-30d324b2d46f?w=400',
   },
   {
     name: 'Chocolate Fudge Cake',
@@ -85,7 +85,7 @@ export const sweetsData = [
     category: SweetCategory.CAKE,
     price: 500,
     quantity: 8,
-    imageUrl: '',
+    imageUrl: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400',
   },
   {
     name: 'Butter Croissants',
@@ -93,7 +93,7 @@ export const sweetsData = [
     category: SweetCategory.PASTRY,
     price: 130,
     quantity: 60,
-    imageUrl: '',
+    imageUrl: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400',
   },
   {
     name: 'Chocolate Sundae',
@@ -101,7 +101,7 @@ export const sweetsData = [
     category: SweetCategory.ICE_CREAM,
     price: 200,
     quantity: 25,
-    imageUrl: '',
+    imageUrl: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400',
   },
 ];
 
