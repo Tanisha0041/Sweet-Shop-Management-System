@@ -4,16 +4,16 @@ import { Sweet, SweetCategory } from './entities/Sweet';
 import { User, UserRole } from './entities/User';
 
 /**
- * Sample sweets data with real images
+ * Sample sweets data with real images (using online URLs for production)
  */
-const sweetsData = [
+export const sweetsData = [
  {
   name: 'Gulab Jamun',
   description: 'Soft, syrupy milk-based Indian sweet balls.',
   category: SweetCategory.OTHER,  
   price: 50,  
   quantity: 80,  
-  imageUrl: '/images/gulabjamun.jpg',
+  imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Gulab_jamun_%28homemade%29.jpg/800px-Gulab_jamun_%28homemade%29.jpg',
 },
  {
   name: 'Jalebi',
@@ -21,7 +21,7 @@ const sweetsData = [
   category: SweetCategory.OTHER,  
   price: 100,  
   quantity: 150,  
-  imageUrl: '/images/jalebi.jpg',
+  imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Jalebi_on_a_white_plate.jpg/800px-Jalebi_on_a_white_plate.jpg',
 },
  {
     name: 'Rasgulla',
@@ -29,7 +29,7 @@ const sweetsData = [
     category: SweetCategory.OTHER,
     price: 200,
     quantity: 100,
-    imageUrl: '/images/Rasgulla-Featured-Image.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Rasgulla_in_syrup.jpg/800px-Rasgulla_in_syrup.jpg',
   },
   {
     name: 'Dark Chocolate Truffle',
@@ -53,7 +53,7 @@ const sweetsData = [
     category: SweetCategory.OTHER,
     price: 250,
     quantity: 100,
-    imageUrl: '/images/kajukatli.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Kaju_katli.jpg/800px-Kaju_katli.jpg',
   },
    {
     name: 'Laddoo',
@@ -61,7 +61,7 @@ const sweetsData = [
     category: SweetCategory.OTHER,
     price: 200,
     quantity: 100,
-    imageUrl: '/images/ladoo.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Besan_Ke_Laddu.jpg/800px-Besan_Ke_Laddu.jpg',
   },
 
  
