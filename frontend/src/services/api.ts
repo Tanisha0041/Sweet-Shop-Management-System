@@ -8,8 +8,8 @@ import {
   SearchParams 
 } from '../types';
 
-// API base URL
-const API_URL = process.env.REACT_APP_API_URL || '/api';
+// API base URL - Use deployed backend URL
+const API_URL = process.env.REACT_APP_API_URL || 'https://sweet-shop-management-system-em57.onrender.com/api';
 
 /**
  * Create axios instance with default config
