@@ -163,4 +163,7 @@ async function seed() {
   }
 }
 
-seed();
+// Only run seed function when called directly (not when imported)
+if (require.main === module) {
+  seed();
+}
